@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+</head>
+<style>
+
+        body{
+            background-color: #212121;
+        }
+
+        
+    .todo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5rem;
+        font-family: 'poppins';
+        
+    }
+    .todo .container{
+        background-color: #a8bbf5;
+        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;   
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+    }
+
+    .container .inputs{
+        width: 100%;
+        display: flex;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        justify-content: space-between;
+    }
+
+    .inputs input[type="text"] {
+        padding: 8px;
+        width: 100%;
+        border: none;
+        outline: 0;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+
+    .inputs input[type = "button"]{
+        border:none;
+        color: #fff;
+        background: rgba(243, 30, 30, 0.648);
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 0.5rem;
+        width: 10rem;
+    }
+
+    
+    .inputs input[type = "button"]:hover{
+        background: rgba(243, 30, 30, 0.9);
+        
+    }
+
+   
+    .lists{
+       display: flex;
+        flex-direction: column;
+        justify-content: left;
+        width: 100%;
+    
+    }
+
+     .lists ul {
+        list-style:'📘';
+        margin: 0;
+        margin-left: 1rem;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .lists ul li{
+        padding-left: 0.5rem;
+        padding: 0.3rem;
+        position: relative;
+        margin-top: 0.2rem;
+        margin-right: 1rem;
+        border-radius: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.11);
+        text-transform: uppercase;
+        justify-content: space-between;
+        
+    }
+
+    
+    ul li span{
+        position: absolute;
+        right: 0;
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+        text-align: center;
+        
+        cursor: pointer;
+        top: 0;
+       
+    }
+
+    ul li span:hover{
+        color: red;
+    }
+
+    
+   
+
+
+    @media (width<425px){
+        .inputs{
+            flex-direction: column;
+        }
+    }
+    
+</style>
+<body>
+    
+    <section class="todo">
+     
+        <div class="container">
+            <div class="inputs">
+                <input type="text" id ="todo-inp" placeholder="Enter your todo's here">
+                <input type="button" value="Add">
+                <input type="button" value="Remove All" id="remove">
+            </div>
+            <div class="lists">
+                
+                <ul id="list">
+                        <li>Start adding your todo's by clicking add</li>
+                        
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+    
+    <script>
+        const btn_add = document.querySelector('input[type = "button"]');
+        const btn_remove = document.querySelector('#remove');
+        const list = document.getElementById("list");
+        const input = document.getElementById("todo-inp");
+         
+        btn_add.addEventListener('click',()=>{
+            
+            let newItem = document.getElementById("todo-inp").value;
+            if (newItem != "") {
+                const a = document.createElement('li')
+                let span = document.createElement('span')
+                a.appendChild(document.createTextNode(newItem))
+                list.appendChild(a);
+                // a.innerHTML = `${newItem} <button id = "btn-rm">REMOVE</button>`;
+                span.innerHTML = "\u00d7";
+                a.appendChild(span)
+            }
+            input.value = ""
+        });
+
+        btn_remove.addEventListener('click',()=>{
+            if (list.lastChild != null) {
+                // list.removeChild(list.childElementCount)
+                let childs = list.childElementCount-1
+                list.innerHTML = ""
+            }
+        });
+
+      
+        list.addEventListener('click',function (e){
+            if (e.target.tagName == "SPAN") {
+                    e.target.parentElement.remove();
+            }
+        })
+
+
+
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
